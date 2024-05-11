@@ -210,16 +210,22 @@
 	        <div class="col-6">
 	          <div class="site-branding">
 				<?php
-					the_custom_logo();
-					if ( is_front_page() && is_home() ) :
+					global $wpdb;
+					$table_name = $wpdb->prefix . 'home_setting_table';
+					$reslogo = $wpdb->get_results( "SELECT * FROM $table_name where id=1" );
+					if(isset($reslogo) && $reslogo[0]->logo != "") {
+						echo '<img src="./wp-content/uploads/icons/images/'.$reslogo[0]->logo.'" width="45px"/>';
+					} else {
+						if ( is_front_page() && is_home() ) :
 						?>
-						<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?> <span class="logo-dark">LOGO</span></a></h1>
-						<?php
-					else :
-						?>
-						<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?><span class="logo-dark">LOGO</span></a></p>
-						<?php
-					endif;
+							<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?> <span class="logo-dark">LOGO</span></a></h1>
+							<?php
+						else :
+							?>
+							<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?><span class="logo-dark">LOGO</span></a></p>
+							<?php
+						endif;
+					}
 					$ct_custom_description = get_bloginfo( 'description', 'display' );
 					if ( $ct_custom_description || is_customize_preview() ) :
 						?>

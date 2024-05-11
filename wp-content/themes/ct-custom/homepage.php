@@ -2,8 +2,11 @@
 /**
  * Template Name: Home Page
  */
- 
-get_header("header"); ?>
+get_header("header");
+global $wpdb;
+$table_name = $wpdb->prefix . 'home_setting_table';
+$res = $wpdb->get_results( "SELECT * FROM $table_name where id=1" ); 
+?>
 
     <section class="breadgrum-section">
 			<div class="container">
@@ -36,18 +39,25 @@ get_header("header"); ?>
 							<div class="reach-us-div-top">
 								<div class="reach-us-div-top-content-top">
 									<p>Coalition Skills Test</p>
-									535 La Plata Street<br />
-									4200 Argentina
+									<!-- 535 La Plata Street<br />
+									4200 Argentina -->
+									<?php echo isset($res[0]) ? $res[0]->address : ""?>
 								</div>
 								<div class="reach-us-div-top-content-bottom">
-									Phone: 385.154.11.28.38<br />
-									Fax: 385.154.35.66.78
+									<!-- Phone: 385.154.11.28.38<br />
+									Fax: 385.154.35.66.78 -->
+									Phone: <?php echo isset($res[0]) ? $res[0]->phone_number : ""?><br />
+									Fax: <?php echo isset($res[0]) ? $res[0]->fax : ""?>
 								</div>
 							</div>
 							<div class="reach-us-div-bottom">
 								<?php $upload_dir = wp_upload_dir(); ?>
-								<img src="<?php echo $upload_dir['baseurl'] . '/icons/fb.png'; ?>" />
-								<img src="<?php echo $upload_dir['baseurl'] . '/icons/othericons.png'; ?>" />
+								<a href="<?php echo isset($res[0]) ? $res[0]->facebook : ""?>">
+									<img src="<?php echo $upload_dir['baseurl'] . '/icons/fb.png'; ?>" />
+								</a>
+								<a href="<?php echo isset($res[0]) ? $res[0]->twitter_link : ""?>">
+									<img src="<?php echo $upload_dir['baseurl'] . '/icons/othericons.png'; ?>" />
+								</a>
 							</div>
 						</div>
 					</div>
