@@ -180,7 +180,7 @@ function home_page_setting_menu() {
     						    </div>
 
 						        <div class="col-sm-12 col-md-6 col-lg-6">
-						              <label>Phone Number <?php echo $res->phone_number;?></label>
+						              <label>Phone Number</label>
         						      <p>
         						      	<input type="text" class="form-control" name="phone" id="phone" placeholder="i.e 385.154.11.28.38" value="<?php echo isset($res[0]) ? $res[0]->phone_number : ""?>" />
         						      </p>
